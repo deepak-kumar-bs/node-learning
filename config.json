@@ -1,1 +1,1 @@
-[{"firstname":"ABC","lastname":"DEF","runs":2000,"iplTeam":"Mumbai","wickets":5,"matchPlayed":20,"createdAt":"Mon Jan 23 2023 14:08:55 GMT+0530 (India Standard Time)","jersyColor":"blue","new":"no"}]
+[{"firstname":"ABC","lastname":"DEF","runs":2000,"iplTeam":"Mumbai","wickets":5,"matchPlayed":20},{"firstname":"Ishan","lastname":"Kishan","runs":3000,"iplTeam":"Mumbai","wickets":1,"matchPlayed":22},{"firstname":"Surya Kumar","lastname":"Yadav","runs":1500,"iplTeam":"Gujrat","wickets":2,"matchPlayed":30}]
