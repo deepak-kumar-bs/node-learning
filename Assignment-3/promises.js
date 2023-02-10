@@ -158,5 +158,9 @@ startOperations = async() => {
     }
 }
 
-startOperations();
-
+startOperations().then(()=>{
+    console.log("Thanks for visiting.");
+    return 1 ;
+}).catch((e)=>{
+    throw e;
+});
