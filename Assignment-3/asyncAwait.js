@@ -36,16 +36,13 @@ startApp = async() => {
     var loop = true;
     while(loop) {
         console.log("The menus are below.\n1. Create Player Data\n2. Read All Players Data\n3. Update Player Data\n4. Delete Player Data\n5. Exit")
+        let menus = [1,2,3,4,5];
+
         let menuOption = Number(await rlAsync("Please enter the menu option which operation you want to perfom.\n"));
-    
-        do {
-    
-            if(menuOption < 1 || menuOption > 5) {
+
+        while (!menus.includes(menuOption)){
                 menuOption = Number(await rlAsync("Err: Invalid input. Please enter valid input.\n"));
-        
-            }
-        }
-        while (menuOption < 1 || menuOption > 5);        
+        }       
     
         switch (menuOption) {
             case 1 : {

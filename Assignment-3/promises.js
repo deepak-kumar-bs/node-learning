@@ -34,12 +34,9 @@ function createPlayerData(id, firstname, lastname, runs, iplTeam, wickets, match
             playersData = JSON.parse(data);    
         }
         playersData.push(newPlayer);
-        return playersData;
-    }).then((playersData) => {
-        fsPromises.writeFile('./config.json',JSON.stringify(playersData));
+        return fsPromises.writeFile('./config.json',JSON.stringify(playersData));
+    }).then((result) => {
         console.log('One player added.');
-        return;
-
     }).catch((err) => {
         throw err;
     })
@@ -60,27 +57,25 @@ function showAllPlayersData(){
     
 function updatePlayerData(id, firstname){
 
+    let plyData;
     fsPromises.readFile('./config.json',null).then((data) => {
         if(data.length == 0 ){
             console.log('Data not found.');
             return;
         }
         playersData = JSON.parse(data);
-        let plyData;
         playersData.forEach((item, index ) => {
             if(item.id == id){
                 item.firstname = firstname;
                 plyData = item;
-                fsPromises.writeFile('./config.json', JSON.stringify(playersData));
-                console.log("First Name of player has been updated.");
-                return;
             }
         });
-        if(!plyData){
-            console.log("This palyer doesn't exist");
-            return;
-        }
-         
+        return fsPromises.writeFile('./config.json', JSON.stringify(playersData));     
+    }).then(() => {
+
+        if(!plyData) return console.log("This palyer doesn't exist");
+        else return console.log("first name of player has been updated.");
+
     }).catch((err) => {
         throw err;
     });  
@@ -88,25 +83,28 @@ function updatePlayerData(id, firstname){
     
 function deletePlayerData(id){
 
+    let removedPlyr;
     fsPromises.readFile('./config.json', null).then ((data) => {
         if(data.length == 0 ){
             console.log('Data not found.');
             return;
         }
         playersData = playersData = JSON.parse(data);
-        let removedPlyr;
+        
         playersData.forEach((item, index ) => {
             if(item.id == id){
                 removedPlyr = playersData.splice(index, 1);
-                fsPromises.writeFile('./config.json', JSON.stringify(playersData));
-                    console.log("This palyer has been removed");
-                    return;
             }
         });
-        if(!removedPlyr){
-            console.log("This palyer doesn't exist");
-            return;
-        }
+        return fsPromises.writeFile('./config.json', JSON.stringify(playersData));
+
+    }).then((result) => {
+        
+        if(!removedPlyr) return console.log("This palyer doesn't exist");
+        else return console.log("This palyer has been deleted.");
+
+    }).catch((err) => {
+        throw err;
     });
 }
 
@@ -118,17 +116,14 @@ startOperations = async() => {
     console.log("3. Update Player Data");
     console.log("4. Delete Player Data");
     console.log("5. Exit");
+    let menus = [1,2,3,4,5];
 
     let menuOption = Number(await rlAsync("Please enter the menu option which operation you want to perfom.\n"));
 
-    do {
-
-        if(menuOption < 1 || menuOption > 5) {
+    while (!menus.includes(menuOption)){
             menuOption = Number(await rlAsync("Err: Invalid input. Please enter valid input.\n"));
-    
-        }
     }
-    while (menuOption < 1 || menuOption > 5);
+    
     
 
     switch (menuOption) {
